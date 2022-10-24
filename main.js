@@ -57,20 +57,22 @@ const posts = [
 ];
 
 
-// BONUS
-//  1. Formattare le date in formato italiano (gg/mm/aaaa)
-
 let container = document.getElementById('container');
 const likeButton = document.getElementsByClassName("js-like-button")
 const likeCounter = document.getElementsByClassName("js-likes-counter")
 const likeArray = [];
 
+
 posts.forEach(value => {
     let primaLetteraNC = value.author.name.split(' ').map(word => word[0]).join('');
 
     let immagineProfilo =(value.author.image==null)?`<div class="profile-pic-default"><span>${primaLetteraNC}</span></div>` : `<img class="profile-pic" src="${value.author.image}" alt="${value.name}">`;
-    
+
     let post = document.createElement('div');
+
+    const data = value.created.split('-').reverse().join('/');
+
+   
 
     post.innerHTML = `
     <div class="post">
@@ -81,7 +83,7 @@ posts.forEach(value => {
             </div>
             <div class="post-meta__data">
                 <div class="post-meta__author">"${value.author.name}"</div>
-                <div class="post-meta__time">dd/mm/yyyy</div>
+                <div class="post-meta__time">${data}</div>
             </div>                    
         </div>
     </div>
