@@ -59,20 +59,25 @@ const posts = [
 
 // BONUS
 //  1. Formattare le date in formato italiano (gg/mm/aaaa)
-//  2. Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Luca Formicola > LF).
 
 let container = document.getElementById('container');
 const likeButton = document.getElementsByClassName("js-like-button")
 const likeCounter = document.getElementsByClassName("js-likes-counter")
 const likeArray = [];
+
 posts.forEach(value => {
+    let primaLetteraNC = value.author.name.split(' ').map(word => word[0]).join('');
+
+    let immagineProfilo =(value.author.image==null)?`<div class="profile-pic-default"><span>${primaLetteraNC}</span></div>` : `<img class="profile-pic" src="${value.author.image}" alt="${value.name}">`;
+    
     let post = document.createElement('div');
+
     post.innerHTML = `
     <div class="post">
     <div class="post__header">
         <div class="post-meta">                    
             <div class="post-meta__icon">
-                <img class="profile-pic" src="${value.author.image}" alt="${value.name}">                    
+                ${immagineProfilo}          
             </div>
             <div class="post-meta__data">
                 <div class="post-meta__author">"${value.author.name}"</div>
