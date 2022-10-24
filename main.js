@@ -115,13 +115,13 @@ for (let i = 0; i < likeButton.length; i++) {
         if (parseInt(likeCounter[i].textContent) == likemax) {
             likeButton[i].classList.remove('like-button--liked');
             likeCounter[i].innerText = parseInt(likeCounter[i].innerText) - 1;
-            likeArray.splice(posts[i].id -1,1);
+            const index = likeArray.indexOf(posts[i].id);
+            likeArray.splice(index,1)
             console.log("splice "+likeArray);
         } else {
             likeButton[i].classList.add('like-button--liked');
             likeCounter[i].innerText = parseInt(likeCounter[i].innerText) + 1;
             console.log('sono qui ' + likemax);
-
             likeArray.push(posts[i].id);
             console.log("push "+likeArray);
         }
