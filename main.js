@@ -55,3 +55,56 @@ const posts = [
         "created": "2021-03-05"
     }
 ];
+
+// Milestone 3- Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
+// Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
+// BONUS
+//  1. Formattare le date in formato italiano (gg/mm/aaaa)
+// 2. Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Luca Formicola > LF).
+//  3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
+let container = document.getElementById('container');
+const arrayLikes =[];
+
+posts.forEach(value => {
+    let post = document.createElement('div');
+    post.innerHTML = `
+    <div class="post">
+    <div class="post__header">
+        <div class="post-meta">                    
+            <div class="post-meta__icon">
+                <img class="profile-pic" src="${value.author.image}" alt="${value.name}">                    
+            </div>
+            <div class="post-meta__data">
+                <div class="post-meta__author">"${value.author.name}"</div>
+                <div class="post-meta__time">dd/mm/yyyy</div>
+            </div>                    
+        </div>
+    </div>
+    <div class="post__text">"${value.content}"
+    </div>
+    <div class="post__image">
+        <img src="${value.media}" alt="">
+    </div>
+    <div class="post__footer">
+        <div class="likes js-likes">
+            <div class="likes__cta">
+            <a class="like-button js-like-button" href="#" data-postid="${value.id}">
+                    <i class="like-button__icon fas fa-thumbs-up " aria-hidden="true"></i>
+                    <span class="like-button__label">Mi Piace</span>
+                </a>
+                
+            </div>
+            <div class="likes__counter">
+                Piace a <b id="like-counter-${value.id}" class="js-likes-counter">${value.likes}</b> persone
+            </div>
+        </div> 
+    </div>            
+</div>
+    `;
+    container.append(post);
+    
+});
+
+let btnLikes = document.getElementsByClassName('like-button');
+
+console.log(btnLikes);
