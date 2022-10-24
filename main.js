@@ -56,15 +56,15 @@ const posts = [
     }
 ];
 
-// Milestone 3- Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
-// Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
+
 // BONUS
 //  1. Formattare le date in formato italiano (gg/mm/aaaa)
-// 2. Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Luca Formicola > LF).
-//  3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
-let container = document.getElementById('container');
-const arrayLikes =[];
+//  2. Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Luca Formicola > LF).
 
+let container = document.getElementById('container');
+const likeButton = document.getElementsByClassName("js-like-button")
+const likeCounter = document.getElementsByClassName("js-likes-counter")
+const likeArray = [];
 posts.forEach(value => {
     let post = document.createElement('div');
     post.innerHTML = `
@@ -102,9 +102,28 @@ posts.forEach(value => {
 </div>
     `;
     container.append(post);
-    
+
 });
 
-let btnLikes = document.getElementsByClassName('like-button');
 
-console.log(btnLikes);
+
+for (let i = 0; i < likeButton.length; i++) {
+    let likemax = parseInt(likeCounter[i].textContent) + 1;
+    console.log(likemax);
+    likeButton[i].addEventListener('click', function (event) {
+        event.preventDefault();
+        if (parseInt(likeCounter[i].textContent) == likemax) {
+            likeButton[i].classList.remove('like-button--liked');
+            likeCounter[i].innerText = parseInt(likeCounter[i].innerText) - 1;
+            likeArray.splice(posts[i].id -1,1);
+            console.log("splice "+likeArray);
+        } else {
+            likeButton[i].classList.add('like-button--liked');
+            likeCounter[i].innerText = parseInt(likeCounter[i].innerText) + 1;
+            console.log('sono qui ' + likemax);
+
+            likeArray.push(posts[i].id);
+            console.log("push "+likeArray);
+        }
+    });
+}
